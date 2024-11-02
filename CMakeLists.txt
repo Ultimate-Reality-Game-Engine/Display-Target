@@ -28,8 +28,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Create options that are dependent on this project being top level
 option(DISPLAY_TARGET_INSTALL "Enable project install" ${PROJECT_IS_TOP_LEVEL})
 
-include(GNUInstallDirs)
-
 # End CMake configuration and settings ************************************************************
 #**************************************************************************************************
 
