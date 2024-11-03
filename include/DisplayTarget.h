@@ -1,6 +1,10 @@
 #ifndef ULTREALITY_RENDERING_DISPLAY_TARGET_H
 #define ULTREALITY_RENDERING_DISPLAY_TARGET_H
 
+#if defined(_WIN_TARGET)
+#include <windows.h>
+#endif
+
 #if defined(__GNUC__) or defined(__clang__)
 #define FORCE_INLINE inline __attribute__((always_inline))
 #elif defined(_MSC_VER)

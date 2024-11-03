@@ -37,7 +37,7 @@ include(GNUInstallDirs)
 #**************************************************************************************************
 
 # Create list of all source files to be used in this target
-file(GLOB_RECURSE DisplayTarget_SOURCE "${CMAKE_SOURCE_DIR}/src/*.cpp")
+file(GLOB_RECURSE DisplayTarget_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
 if(DisplayTarget_SOURCE)
 # Create the Display Target Interface library
