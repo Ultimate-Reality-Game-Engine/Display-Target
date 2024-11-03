@@ -17,7 +17,7 @@ namespace UltReality::Rendering
 	using MessageHandler = /*Need to define message handler on MacOS*/;
 #endif
 
-	enum class WindowStyle
+	enum class WindowStyle : uint32_t
 	{
 #if defined(_WIN_TARGET)
 		Windowed = WS_OVERLAPPEDWINDOW,
@@ -30,7 +30,7 @@ namespace UltReality::Rendering
 #endif
 	};
 
-	enum class WindowSizeMode
+	enum class WindowSizeMode : uint32_t
 	{
 #if defined(_WIN_TARGET)
 		Resizable = WS_THICKFRAME,
