@@ -28,6 +28,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Create options that are dependent on this project being top level
 option(DISPLAY_TARGET_INSTALL "Enable project install" ${PROJECT_IS_TOP_LEVEL})
 
+include(GNUInstallDirs)
+
 # End CMake configuration and settings ************************************************************
 #**************************************************************************************************
 
@@ -101,8 +103,8 @@ if(DISPLAY_TARGET_INSTALL)
 	)
 
 	# Define Package install paths
-	set(UltReality_INCLUDEDIR_FOR_PKG_CONFIG "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}")
-	set(UltReality_LIBDIR_PKG_CONFIG "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
+	set(INCLUDEDIR_FOR_PKG_CONFIG "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}")
+	set(LIBDIR_PKG_CONFIG "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
 
 	# Create and install the package config file
 	configure_file(

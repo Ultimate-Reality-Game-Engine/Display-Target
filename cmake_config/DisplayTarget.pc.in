@@ -1,6 +1,6 @@
 prefix=@CMAKE_INSTALL_PREFIX@
-libdir=@UltReality_LIBDIR_FOR_PKG_CONFIG@
-includedir=@UltReality_INCLUDEDIR_FOR_PKG_CONFIG@
+libdir=@LIBDIR_FOR_PKG_CONFIG@
+includedir=@INCLUDEDIR_FOR_PKG_CONFIG@
 
 Name: @PROJECT_NAME@
 Description: Agnostic system for window creation and use in rendering
