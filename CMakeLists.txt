@@ -36,19 +36,32 @@ include(GNUInstallDirs)
 # Target Creation *********************************************************************************
 #**************************************************************************************************
 
+# Define an INTERFACE target for the DisplayTarget header only
+add_library(DisplayTarget INTERFACE)
+
+target_include_directories(DisplayTarget INTERFACE 
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/DisplayTarget.h> 
+	$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> # This is used when the library is installed
+)
+
+set_target_properties(DisplayTarget PROPERTIES 
+	VERSION ${PROJECT_VERSION} 
+	SOVERSION ${PROJECT_VERSION_MAJOR}
+)
+
 # Create list of all source files to be used in this target
-file(GLOB_RECURSE DisplayTarget_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+file(GLOB_RECURSE DisplayTargetFactory_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
-if(DisplayTarget_SOURCE)
-# Create the Display Target Interface library
-add_library(DisplayTarget STATIC ${DisplayTarget_SOURCE})
+if(DisplayTargetFactory_SOURCE)
+# Create the DisplayTargetFactory Interface library
+add_library(DisplayTargetFactory STATIC ${DisplayTargetFactory_SOURCE})
 
-target_include_directories(DisplayTarget PUBLIC 
+target_include_directories(DisplayTargetFactory PUBLIC 
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> 
  	$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> # This is used when the library is installed
 )
 
-set_target_properties(DisplayTarget PROPERTIES 
+set_target_properties(DisplayTargetFactory PROPERTIES 
 	VERSION ${PROJECT_VERSION} 
 	SOVERSION ${PROJECT_VERSION_MAJOR}
 )
@@ -72,7 +85,7 @@ if(DISPLAY_TARGET_INSTALL)
 	install(
 		EXPORT DisplayTarget_Targets 
 		FILE DisplayTarget_Targets.cmake 
-		NAMESPACE UltReality::Rendering 
+		NAMESPACE UltReality::Rendering:: 
 		DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/DisplayTarget/cmake
 	)
 
