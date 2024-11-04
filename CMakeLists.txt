@@ -76,7 +76,7 @@ set_target_properties(DisplayTargetFactory PROPERTIES
 if(DISPLAY_TARGET_INSTALL)
 	# Install the targets
 	install(
-		TARGETS DisplayTarget 
+		TARGETS DisplayTarget DisplayTargetFactory 
 		EXPORT DisplayTarget_Targets 
 		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 	)
