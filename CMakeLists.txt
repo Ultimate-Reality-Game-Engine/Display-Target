@@ -40,7 +40,7 @@ include(GNUInstallDirs)
 add_library(DisplayTarget INTERFACE)
 
 target_include_directories(DisplayTarget INTERFACE 
-	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/DisplayTarget.h> 
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/DisplayTarget> 
 	$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> # This is used when the library is installed
 )
 
@@ -57,9 +57,11 @@ if(DisplayTargetFactory_SOURCE)
 add_library(DisplayTargetFactory STATIC ${DisplayTargetFactory_SOURCE})
 
 target_include_directories(DisplayTargetFactory PUBLIC 
-	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> 
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/Factory> 
  	$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> # This is used when the library is installed
 )
+
+target_link_libraries(DisplayTargetFactory PUBLIC DisplayTarget)
 
 set_target_properties(DisplayTargetFactory PROPERTIES 
 	VERSION ${PROJECT_VERSION} 
