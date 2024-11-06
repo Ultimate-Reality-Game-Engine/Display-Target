@@ -49,6 +49,10 @@ set_target_properties(DisplayTarget PROPERTIES
 	SOVERSION ${PROJECT_VERSION_MAJOR}
 )
 
+option(DISPLAY_TARGET_FACTORY_BUILD "Include the DisplayTargetFactory in the build" OFF)
+
+if(DISPLAY_TARGET_FACTORY_BUILD)
+
 # Create list of all source files to be used in this target
 file(GLOB_RECURSE DisplayTargetFactory_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
@@ -67,6 +71,8 @@ set_target_properties(DisplayTargetFactory PROPERTIES
 	VERSION ${PROJECT_VERSION} 
 	SOVERSION ${PROJECT_VERSION_MAJOR}
 )
+endif()
+endif()
 
 # End Target Creation *****************************************************************************
 #**************************************************************************************************
@@ -76,11 +82,21 @@ set_target_properties(DisplayTargetFactory PROPERTIES
 
 # Install the library, header files, and config version file
 if(DISPLAY_TARGET_INSTALL)
+	if(DISPLAY_TARGET_FACTORY_BUILD) 
+		set(DisplayTarget_TARGETS DisplayTarget DisplayTargetFactory)
+	else()
+		set(DisplayTarget_TARGETS DisplayTarget)
+	endif()
+
 	# Install the targets
 	install(
-		TARGETS DisplayTarget DisplayTargetFactory 
+		TARGETS ${DisplayTarget_TARGETS} 
 		EXPORT DisplayTarget_Targets 
-		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} # Static libraries/import libraries (.lib files for .dll linking) 
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} # Shared libraries (.so) 
+		RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} # .exe or .dll 
+		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} # Headers/include directories marked as PUBLIC 
+		PRIVATE_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} # Headers/include directories marked as PRIVATE
 	)
 
 	# Create the targets CMake file which contains the above definitions
@@ -149,7 +165,6 @@ if(DISPLAY_TARGET_INSTALL)
 	include(CPack)
 	message(STATUS "PACKAGE_VERSION is: ${PACKAGE_VERSION}")
 	message(STATUS "PACKAGE_FILE_NAME is: ${CPACK_PACKAGE_FILE_NAME}")
-endif()
 endif()
 # End Installation and Packing Configuration ******************************************************
 #**************************************************************************************************
